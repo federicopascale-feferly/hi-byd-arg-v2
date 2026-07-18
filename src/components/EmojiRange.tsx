@@ -16,15 +16,23 @@ interface Props {
   emoji: string;
   /** Hitos marcados como cortes sobre la barra (ej. 20% y 80%) */
   marks?: Mark[];
+  /** Pinta la zona entre el valor actual y este punto (ej. la carga hasta el objetivo) */
+  highlightTo?: number;
   ariaDescribedby?: string;
 }
 
 const THUMB_PX = 30;
 
-export function EmojiRange({ id, min, max, step, value, onChange, emoji, marks, ariaDescribedby }: Props) {
+export function EmojiRange({ id, min, max, step, value, onChange, emoji, marks, highlightTo, ariaDescribedby }: Props) {
   const toPct = (v: number) => ((v - min) / (max - min)) * 100;
   const pct = toPct(value);
   const offset = (p: number) => `calc(${p}% + ${(0.5 - p / 100) * THUMB_PX}px)`;
+
+  const highlightPct = highlightTo !== undefined ? toPct(highlightTo) : null;
+  const track =
+    highlightPct !== null && highlightPct > pct
+      ? `linear-gradient(to right, var(--primary) 0% ${pct}%, rgba(255, 139, 0, 0.45) ${pct}% ${highlightPct}%, rgba(255,255,255,0.12) ${highlightPct}%)`
+      : `linear-gradient(to right, var(--primary) ${pct}%, rgba(255,255,255,0.12) ${pct}%)`;
 
   return (
     <div className={`relative ${marks?.length ? "mb-4" : ""}`}>
@@ -32,9 +40,7 @@ export function EmojiRange({ id, min, max, step, value, onChange, emoji, marks, 
         {/* Track visual (el input real es transparente encima, con área táctil completa) */}
         <div
           className="pointer-events-none absolute left-0 right-0 top-1/2 h-2 -translate-y-1/2 rounded-full"
-          style={{
-            background: `linear-gradient(to right, var(--primary) ${pct}%, rgba(255,255,255,0.12) ${pct}%)`,
-          }}
+          style={{ background: track }}
           aria-hidden
         />
 

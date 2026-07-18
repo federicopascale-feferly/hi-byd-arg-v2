@@ -104,8 +104,10 @@ export function Calculator() {
             emoji="🔋"
             marks={[
               { value: 20, label: "20%" },
-              { value: 80, label: `${DEFAULT_TARGET_PERCENT}% recomendado` },
+              { value: 80, label: targetPercent === 80 ? "80% recomendado" : "80%" },
+              ...(targetPercent === 100 ? [{ value: 100, label: "100%" }] : []),
             ]}
+            highlightTo={targetPercent}
             ariaDescribedby="battery-note"
           />
           <p id="battery-note" className="mt-2 flex items-start gap-1.5 text-xs text-muted-fg">

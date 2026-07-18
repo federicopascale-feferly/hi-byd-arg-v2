@@ -1,5 +1,9 @@
 # Changelog — Calculadora Hi BYD Argentina v2
 
+## Fase 2.4 — 2026-07-18
+
+- **La barra de batería refleja el objetivo de carga**: al elegir 80% o 100%, la zona a cargar (batería actual → objetivo) se pinta en naranja sobre el track (`EmojiRange.highlightTo`), y el hito del objetivo se mueve — con 100% aparecen los hitos 80% y 100%.
+
 ## Fase 2.3 — 2026-07-18
 
 - **Dato de campo (Federico, ATTO 2 en AC pública): la velocidad NO baja después del 80% en AC.** El motor ya lo calculaba así (taper solo en DC, §3.2/§3.3) — se corrigieron los **textos** que generalizaban a "cargas públicas": la recomendación de cortar en 80% ahora se ata explícitamente a la carga rápida DC, y se aclara que en AC la velocidad se mantiene hasta el final. El aviso al elegir objetivo 100% ahora aparece solo con DC. El system prompt del chat incorpora la verificación de la comunidad.
