@@ -110,9 +110,10 @@ export function Calculator() {
           />
           <p id="battery-note" className="mt-2 flex items-start gap-1.5 text-xs text-muted-fg">
             <IconInfo width={14} height={14} className="mt-0.5 shrink-0 text-accent" />
-            Los hitos marcan la zona saludable de la batería (20–{DEFAULT_TARGET_PERCENT}%). En cargas
-            públicas conviene cargar hasta el {DEFAULT_TARGET_PERCENT}%: pasado ese punto la velocidad
-            de carga se reduce.
+            Los hitos marcan la zona saludable de la batería (20–{DEFAULT_TARGET_PERCENT}%). En carga
+            rápida DC conviene cortar en {DEFAULT_TARGET_PERCENT}%: pasado ese punto la velocidad de
+            carga se reduce. En AC (Wallbox, tomacorriente o pública AC) la velocidad se mantiene
+            hasta el final.
           </p>
 
           <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
@@ -146,11 +147,11 @@ export function Calculator() {
               ))}
             </div>
           </div>
-          {targetPercent === 100 && (
+          {targetPercent === 100 && result.chargerType === "DC" && (
             <p className="mt-2 flex items-start gap-1.5 text-xs text-accent">
               <IconInfo width={14} height={14} className="mt-0.5 shrink-0" />
-              Cargar al 100% lleva más tiempo del proporcional: el último tramo es más lento,
-              sobre todo en carga rápida DC. Para el día a día, el 80% cuida mejor la batería.
+              En carga rápida DC el último tramo es más lento: llegar al 100% lleva más tiempo del
+              proporcional. Para el día a día, el 80% cuida mejor la batería.
             </p>
           )}
         </div>

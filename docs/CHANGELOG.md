@@ -1,5 +1,9 @@
 # Changelog — Calculadora Hi BYD Argentina v2
 
+## Fase 2.3 — 2026-07-18
+
+- **Dato de campo (Federico, ATTO 2 en AC pública): la velocidad NO baja después del 80% en AC.** El motor ya lo calculaba así (taper solo en DC, §3.2/§3.3) — se corrigieron los **textos** que generalizaban a "cargas públicas": la recomendación de cortar en 80% ahora se ata explícitamente a la carga rápida DC, y se aclara que en AC la velocidad se mantiene hasta el final. El aviso al elegir objetivo 100% ahora aparece solo con DC. El system prompt del chat incorpora la verificación de la comunidad.
+
 ## Fase 2.2 — 2026-07-18
 
 - **Objetivo de carga configurable 80/100 (spec §4.4)**: toggle "Objetivo de carga: 80% recomendado / 100%" debajo del slider de batería. El resultado muestra explícitamente el objetivo ("20% → 80%" o "→ 100%"). Al elegir 100% aparece el aviso de que el último tramo es más lento (en DC aplica la curva de taper 80→100 que ya estaba en el motor). La amortización del Wallbox usa la misma sesión configurada.
