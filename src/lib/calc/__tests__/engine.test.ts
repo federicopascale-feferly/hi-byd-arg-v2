@@ -156,12 +156,29 @@ describe('reglas por modelo (§1)', () => {
     expect(r.actualChargingPower).toBe(6.6);
   });
 
-  it('isCompact: atto-2 y song-pro-* con tope 7 kW; el resto 22 kW', () => {
-    expect(chargerRange(byId('atto-2'), 'BYD').max).toBe(7);
+  it('isCompact en AC pública: tope 7 kW para atto-2, song-pro-* y seal-u-dmi; el resto 22 kW', () => {
+    expect(chargerRange(byId('atto-2'), 'AC').max).toBe(7);
     expect(chargerRange(byId('song-pro-gl'), 'AC').max).toBe(7);
-    expect(chargerRange(byId('song-pro-gs'), 'BYD').max).toBe(7);
-    expect(chargerRange(byId('yuan-pro'), 'BYD').max).toBe(22);
+    expect(chargerRange(byId('song-pro-gs'), 'AC').max).toBe(7);
+    expect(chargerRange(byId('seal-u-dmi'), 'AC').max).toBe(7);
+    expect(chargerRange(byId('yuan-pro'), 'AC').max).toBe(22);
     expect(chargerRange(byId('shark'), 'AC').max).toBe(22);
+  });
+
+  it('Wallbox BYD domiciliario: tope 6,6 kW para todos los modelos', () => {
+    expect(chargerRange(byId('yuan-pro'), 'BYD').max).toBe(6.6);
+    expect(chargerRange(byId('shark'), 'BYD').max).toBe(6.6);
+    expect(chargerRange(byId('atto-2'), 'BYD').max).toBe(6.6);
+  });
+
+  it('Seal U DM-i: misma ficha que Song Pro GS', () => {
+    const seal = byId('seal-u-dmi');
+    const song = byId('song-pro-gs');
+    expect(seal.batteryKw).toBe(song.batteryKw);
+    expect(seal.maxAc).toBe(song.maxAc);
+    expect(seal.maxDc).toBe(0);
+    expect(seal.electricRange).toBe(song.electricRange);
+    expect(seal.tipo).toBe('PHEV');
   });
 
   it('Shell solo con maxDc > 0 y carga pública', () => {

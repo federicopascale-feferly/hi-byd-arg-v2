@@ -77,6 +77,37 @@ input[type="range"] {
   touch-action: pan-y;
 }
 
+/* Sliders con emoji como thumb: el input queda invisible pero interactivo;
+   el track visual y el emoji los dibuja el componente EmojiRange */
+input[type="range"].emoji-range {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+input[type="range"].emoji-range::-webkit-slider-runnable-track {
+  background: transparent;
+}
+input[type="range"].emoji-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 30px;
+  height: 44px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+input[type="range"].emoji-range::-moz-range-track {
+  background: transparent;
+}
+input[type="range"].emoji-range::-moz-range-thumb {
+  width: 30px;
+  height: 44px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+}
+
 :focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;

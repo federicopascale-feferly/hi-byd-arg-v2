@@ -8,6 +8,8 @@ export interface CarModel {
   id: string;
   nombre: string;
   tipo: VehicleKind;
+  /** Descripción breve para mostrar al seleccionar el modelo */
+  descripcion: string;
   /** Capacidad de batería en kWh */
   batteryKw: number;
   /** Potencia máxima de carga AC en kW */

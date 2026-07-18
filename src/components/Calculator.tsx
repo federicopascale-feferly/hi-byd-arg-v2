@@ -14,11 +14,12 @@ import { costoPorKm } from "@/lib/calc/costoPorKm";
 import type { CarModel, ChargerType, TarifaId } from "@/lib/calc/types";
 import { formatNum } from "@/lib/format";
 import { ChargerControls } from "./ChargerControls";
+import { EmojiRange } from "./EmojiRange";
 import { ModelSelector } from "./ModelSelector";
 import { PaybackSection } from "./PaybackSection";
 import { ResultsPanel } from "./ResultsPanel";
 import { TariffPicker } from "./TariffPicker";
-import { IconFuel } from "./icons";
+import { IconFuel, IconInfo } from "./icons";
 
 const clampPower = (model: CarModel, type: ChargerType, power: number) => {
   const r = chargerRange(model, type);
@@ -91,21 +92,26 @@ export function Calculator() {
               {formatNum(currentBattery)}%
             </output>
           </div>
-          <input
+          <EmojiRange
             id="current-battery"
-            type="range"
             min={0}
             max={100}
             step={1}
             value={currentBattery}
-            onChange={(e) => setCurrentBattery(Number(e.target.value))}
-            className="w-full h-11"
+            onChange={setCurrentBattery}
+            emoji="🔋"
+            marks={[
+              { value: 20, label: "20%" },
+              { value: 80, label: `${DEFAULT_TARGET_PERCENT}% recomendado` },
+            ]}
+            ariaDescribedby="battery-note"
           />
-          <div className="flex justify-between text-xs text-muted-fg font-mono">
-            <span>0%</span>
-            <span>Objetivo: {DEFAULT_TARGET_PERCENT}%</span>
-            <span>100%</span>
-          </div>
+          <p id="battery-note" className="mt-2 flex items-start gap-1.5 text-xs text-muted-fg">
+            <IconInfo width={14} height={14} className="mt-0.5 shrink-0 text-accent" />
+            Los hitos marcan la zona saludable de la batería (20–{DEFAULT_TARGET_PERCENT}%). En cargas
+            públicas conviene cargar hasta el {DEFAULT_TARGET_PERCENT}%: pasado ese punto la velocidad
+            de carga se reduce.
+          </p>
         </div>
 
         <ChargerControls

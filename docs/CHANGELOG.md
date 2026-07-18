@@ -1,5 +1,16 @@
 # Changelog — Calculadora Hi BYD Argentina v2
 
+## Fase 2.1 — 2026-07-18
+
+- **Seal U DM-i** agregado al catálogo (ficha igual a Song Pro GS: 18,3 kWh, AC 6,6 kW, sin DC, 110 km eléctricos; PHEV con V2L). El chat lo conoce automáticamente (system prompt generado desde `data.ts`).
+- Título del selector: **"Modelos disponibles en Argentina"**. Al elegir un modelo la grilla se colapsa y queda solo el seleccionado con una **descripción breve** (campo `descripcion` en `CarModel`) y botón "Cambiar modelo".
+- **Slider de batería con hitos al 20% y 80%** (cortes visuales sobre la barra) + aviso: en cargas públicas conviene cargar hasta el 80% porque después la velocidad baja.
+- **Wallbox BYD limitado a 6,6 kW** (`BYD_WALLBOX_MAX`) con aclaración de que instalaciones de más potencia son raras. La AC pública mantiene 7/22 kW según `isCompact`.
+- **Emojis como thumb de los sliders**: 🔋 batería, ⚡ potencia (componente `EmojiRange`: input transparente con área táctil de 44px + track y emoji dibujados aparte).
+- **Botón "Encontrá tu punto de carga más cercano"** (visible con carga pública AC/DC): abre Google Maps con la búsqueda de estaciones de carga cerca de la ubicación del usuario — sin API key ni costo. Si se valida el uso, se puede evolucionar a mapa embebido con Places API.
+- Tests: 25 (nuevos: tope Wallbox 6,6 y ficha Seal U DM-i).
+
+
 ## Fase 2 — 2026-07-18
 
 ### Design system propio
