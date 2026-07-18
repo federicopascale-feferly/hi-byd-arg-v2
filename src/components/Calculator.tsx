@@ -31,6 +31,7 @@ export function Calculator() {
   const [chargerType, setChargerType] = useState<ChargerType>("BYD");
   const [chargerPower, setChargerPower] = useState(6.6);
   const [currentBattery, setCurrentBattery] = useState(20);
+  const [targetPercent, setTargetPercent] = useState<80 | 100>(DEFAULT_TARGET_PERCENT as 80);
   const [tarifaId, setTarifaId] = useState<TarifaId>("EPE");
   const [precioNafta, setPrecioNafta] = useState(DEFAULT_PRECIO_NAFTA);
   const [unidadConsumo, setUnidadConsumo] = useState<"l100" | "kml">("l100");
@@ -67,6 +68,7 @@ export function Calculator() {
     chargerType,
     chargerPower,
     currentBattery,
+    targetPercent,
     tarifaId: tarifa.id,
   });
 
@@ -112,6 +114,45 @@ export function Calculator() {
             públicas conviene cargar hasta el {DEFAULT_TARGET_PERCENT}%: pasado ese punto la velocidad
             de carga se reduce.
           </p>
+
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
+            <span id="target-label" className="text-sm font-medium text-muted-fg">
+              Objetivo de carga
+            </span>
+            <div
+              role="group"
+              aria-labelledby="target-label"
+              className="inline-flex rounded-lg border border-border p-0.5"
+            >
+              {(
+                [
+                  { value: 80, label: "80% recomendado" },
+                  { value: 100, label: "100%" },
+                ] as const
+              ).map((t) => (
+                <button
+                  key={t.value}
+                  type="button"
+                  onClick={() => setTargetPercent(t.value)}
+                  aria-pressed={targetPercent === t.value}
+                  className={`min-h-[36px] cursor-pointer rounded-md px-3 py-1.5 font-mono text-xs transition-colors duration-200 ${
+                    targetPercent === t.value
+                      ? "bg-primary text-on-primary"
+                      : "text-muted-fg hover:text-foreground"
+                  }`}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          {targetPercent === 100 && (
+            <p className="mt-2 flex items-start gap-1.5 text-xs text-accent">
+              <IconInfo width={14} height={14} className="mt-0.5 shrink-0" />
+              Cargar al 100% lleva más tiempo del proporcional: el último tramo es más lento,
+              sobre todo en carga rápida DC. Para el día a día, el 80% cuida mejor la batería.
+            </p>
+          )}
         </div>
 
         <ChargerControls
@@ -195,7 +236,7 @@ export function Calculator() {
           result={result}
           costoKm={costoKm}
           tarifa={tarifa}
-          targetPercent={DEFAULT_TARGET_PERCENT}
+          targetPercent={targetPercent}
           currentBattery={currentBattery}
         />
       </div>

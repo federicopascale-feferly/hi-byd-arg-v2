@@ -1,5 +1,9 @@
 # Changelog — Calculadora Hi BYD Argentina v2
 
+## Fase 2.2 — 2026-07-18
+
+- **Objetivo de carga configurable 80/100 (spec §4.4)**: toggle "Objetivo de carga: 80% recomendado / 100%" debajo del slider de batería. El resultado muestra explícitamente el objetivo ("20% → 80%" o "→ 100%"). Al elegir 100% aparece el aviso de que el último tramo es más lento (en DC aplica la curva de taper 80→100 que ya estaba en el motor). La amortización del Wallbox usa la misma sesión configurada.
+
 ## Fase 2.1 — 2026-07-18
 
 - **Seal U DM-i** agregado al catálogo (ficha igual a Song Pro GS: 18,3 kWh, AC 6,6 kW, sin DC, 110 km eléctricos; PHEV con V2L). El chat lo conoce automáticamente (system prompt generado desde `data.ts`).
