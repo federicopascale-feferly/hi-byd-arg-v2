@@ -1,26 +1,104 @@
 @import "tailwindcss";
 
+/* Design system: design-system/hi-byd-arg/MASTER.md (Aurora UI, cian eléctrico + verde eco) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --background: #ecfeff;
+  --surface: rgba(255, 255, 255, 0.78);
+  --foreground: #164e63;
+  --muted-fg: #47788c;
+  --border: #a5f3fc;
+  --primary: #0891b2;
+  --on-primary: #ffffff;
+  --secondary: #22d3ee;
+  --accent: #15803d;
+  --accent-fill: #16a34a;
+  --destructive: #dc2626;
+  --ring: #0891b2;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #05222d;
+    --surface: rgba(8, 39, 51, 0.72);
+    --foreground: #e3f7fd;
+    --muted-fg: #8fc1d2;
+    --border: #155e75;
+    --primary: #22d3ee;
+    --on-primary: #05222d;
+    --secondary: #0891b2;
+    --accent: #4ade80;
+    --accent-fill: #22c55e;
+    --destructive: #f87171;
+    --ring: #22d3ee;
   }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted-fg: var(--muted-fg);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-accent-fill: var(--accent-fill);
+  --color-destructive: var(--destructive);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-syncopate);
+  --font-mono: var(--font-space-mono);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  position: relative;
+}
+
+/* Fondo Aurora: gradientes fluidos con animación lenta (8-12s) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 45% at 18% 22%, color-mix(in srgb, var(--secondary) 32%, transparent) 0%, transparent 70%),
+    radial-gradient(38% 42% at 82% 18%, color-mix(in srgb, var(--accent-fill) 24%, transparent) 0%, transparent 70%),
+    radial-gradient(45% 50% at 70% 85%, color-mix(in srgb, var(--primary) 26%, transparent) 0%, transparent 72%);
+  filter: blur(48px);
+  animation: aurora-drift 12s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-drift {
+  from {
+    transform: translate3d(-2%, -1%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(2%, 2%, 0) scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+input[type="range"] {
+  accent-color: var(--primary);
+  cursor: pointer;
+  touch-action: pan-y;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
