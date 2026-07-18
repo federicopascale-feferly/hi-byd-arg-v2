@@ -190,13 +190,13 @@ describe('reglas por modelo (§1)', () => {
 });
 
 describe('costo por km (§4.1)', () => {
-  it('con defaults: nafta $123,25/km', () => {
+  it('con defaults: nafta $2300/l y 8,5 l/100km → $195,50/km', () => {
     const r = costoPorKm({ costoSesion: 20000, addedRangeKm: 190 });
     expect(r).not.toBeNull();
-    expect(r!.costoPorKmNafta).toBeCloseTo(123.25, 2);
+    expect(r!.costoPorKmNafta).toBeCloseTo(195.5, 2);
     expect(r!.costoPorKmElectrico).toBeCloseTo(20000 / 190, 5);
-    expect(r!.ahorroPorKm).toBeCloseTo(123.25 - 20000 / 190, 5);
-    expect(r!.ahorroPorcentual).toBeCloseTo(((123.25 - 20000 / 190) / 123.25) * 100, 5);
+    expect(r!.ahorroPorKm).toBeCloseTo(195.5 - 20000 / 190, 5);
+    expect(r!.ahorroPorcentual).toBeCloseTo(((195.5 - 20000 / 190) / 195.5) * 100, 5);
   });
 
   it('acepta precio de nafta y consumo custom', () => {

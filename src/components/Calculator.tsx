@@ -15,6 +15,7 @@ import type { CarModel, ChargerType, TarifaId } from "@/lib/calc/types";
 import { formatNum } from "@/lib/format";
 import { ChargerControls } from "./ChargerControls";
 import { ModelSelector } from "./ModelSelector";
+import { PaybackSection } from "./PaybackSection";
 import { ResultsPanel } from "./ResultsPanel";
 import { TariffPicker } from "./TariffPicker";
 import { IconFuel } from "./icons";
@@ -31,7 +32,17 @@ export function Calculator() {
   const [currentBattery, setCurrentBattery] = useState(20);
   const [tarifaId, setTarifaId] = useState<TarifaId>("EPE");
   const [precioNafta, setPrecioNafta] = useState(DEFAULT_PRECIO_NAFTA);
-  const [consumoReferencia, setConsumoReferencia] = useState(DEFAULT_CONSUMO_REFERENCIA);
+  const [unidadConsumo, setUnidadConsumo] = useState<"l100" | "kml">("l100");
+  const [consumoValor, setConsumoValor] = useState(DEFAULT_CONSUMO_REFERENCIA);
+
+  // El motor siempre trabaja en l/100km; km/l se convierte (l/100km = 100 / km/l)
+  const consumoReferencia = unidadConsumo === "l100" ? consumoValor : 100 / consumoValor;
+
+  const cambiarUnidad = (u: "l100" | "kml") => {
+    if (u === unidadConsumo) return;
+    setUnidadConsumo(u);
+    setConsumoValor((v) => Number((100 / v).toFixed(1)));
+  };
 
   const tarifas = tarifasDisponibles(chargerType);
   const tarifa = tarifas.find((t) => t.id === tarifaId) ?? tarifas[0];
@@ -66,6 +77,7 @@ export function Calculator() {
   });
 
   return (
+    <>
     <div className="grid gap-6 lg:grid-cols-[1.15fr_1fr] lg:items-start">
       <div className="space-y-6 rounded-2xl border border-border bg-surface p-6 backdrop-blur">
         <ModelSelector models={CAR_MODELS} selectedId={model.id} onSelect={selectModel} />
@@ -124,22 +136,48 @@ export function Calculator() {
                 step={10}
                 value={precioNafta}
                 onChange={(e) => setPrecioNafta(Math.max(Number(e.target.value), 0))}
-                className="w-full min-h-[44px] rounded-xl border border-border bg-surface px-3 font-mono text-sm"
+                className="w-full min-h-[44px] rounded-xl border border-border bg-input-bg px-3 font-mono text-sm"
               />
             </div>
             <div>
               <label htmlFor="consumo-ref" className="block text-xs text-muted-fg mb-1">
-                Consumo (l/100 km)
+                Consumo ({unidadConsumo === "l100" ? "l/100 km" : "km/litro"})
               </label>
               <input
                 id="consumo-ref"
                 type="number"
                 min={1}
                 step={0.5}
-                value={consumoReferencia}
-                onChange={(e) => setConsumoReferencia(Math.max(Number(e.target.value), 1))}
-                className="w-full min-h-[44px] rounded-xl border border-border bg-surface px-3 font-mono text-sm"
+                value={consumoValor}
+                onChange={(e) => setConsumoValor(Math.max(Number(e.target.value), 1))}
+                className="w-full min-h-[44px] rounded-xl border border-border bg-input-bg px-3 font-mono text-sm"
               />
+              <div
+                role="group"
+                aria-label="Unidad de consumo"
+                className="mt-2 inline-flex rounded-lg border border-border p-0.5"
+              >
+                {(
+                  [
+                    { id: "l100", label: "l/100" },
+                    { id: "kml", label: "km/l" },
+                  ] as const
+                ).map((u) => (
+                  <button
+                    key={u.id}
+                    type="button"
+                    onClick={() => cambiarUnidad(u.id)}
+                    aria-pressed={unidadConsumo === u.id}
+                    className={`cursor-pointer rounded-md px-3 py-1.5 font-mono text-xs transition-colors duration-200 ${
+                      unidadConsumo === u.id
+                        ? "bg-primary text-on-primary"
+                        : "text-muted-fg hover:text-foreground"
+                    }`}
+                  >
+                    {u.label}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </fieldset>
@@ -156,5 +194,7 @@ export function Calculator() {
         />
       </div>
     </div>
+    <PaybackSection targetEnergyKw={result.targetEnergyKw} />
+    </>
   );
 }

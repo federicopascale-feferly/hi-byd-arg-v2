@@ -29,7 +29,7 @@ export function ResultsPanel({ model, result, costoKm, tarifa, targetPercent, cu
     return (
       <section aria-label="Resultados" className="rounded-2xl border border-border bg-surface p-6 backdrop-blur">
         <div className="flex items-start gap-3 text-muted-fg">
-          <IconBattery className="mt-0.5 shrink-0 text-accent" />
+          <IconBattery className="mt-0.5 shrink-0 text-success" />
           <p className="text-sm">
             La batería ya está en o por encima del objetivo del {targetPercent}%. No hace falta cargar.
           </p>
@@ -55,7 +55,7 @@ export function ResultsPanel({ model, result, costoKm, tarifa, targetPercent, cu
           {formatNum(result.actualChargingPower)} kW
         </p>
         {result.esCurvaEstimada && (
-          <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-border/50 px-3 py-1 text-xs text-muted-fg">
+          <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs text-muted-fg">
             <IconInfo width={14} height={14} />
             Curva DC estimada (taper desde 75%), no es dato de fábrica
           </p>
@@ -84,12 +84,12 @@ export function ResultsPanel({ model, result, costoKm, tarifa, targetPercent, cu
             <div>
               <div className="flex items-baseline justify-between text-sm">
                 <span className="flex items-center gap-1.5">
-                  <IconZap width={14} height={14} className="text-accent" /> Eléctrico
+                  <IconZap width={14} height={14} className="text-success" /> Eléctrico
                 </span>
-                <span className="font-mono font-bold text-accent">{formatARSFino(costoKm.costoPorKmElectrico)}/km</span>
+                <span className="font-mono font-bold text-success">{formatARSFino(costoKm.costoPorKmElectrico)}/km</span>
               </div>
-              <div className="mt-1 h-2 rounded-full bg-border/50" role="presentation">
-                <div className="h-2 rounded-full bg-accent-fill" style={{ width: `${pctElectrico}%` }} />
+              <div className="mt-1 h-2 rounded-full bg-white/10" role="presentation">
+                <div className="h-2 rounded-full bg-success" style={{ width: `${pctElectrico}%` }} />
               </div>
             </div>
             <div>
@@ -99,14 +99,14 @@ export function ResultsPanel({ model, result, costoKm, tarifa, targetPercent, cu
                 </span>
                 <span className="font-mono font-bold">{formatARSFino(costoKm.costoPorKmNafta)}/km</span>
               </div>
-              <div className="mt-1 h-2 rounded-full bg-border/50" role="presentation">
+              <div className="mt-1 h-2 rounded-full bg-white/10" role="presentation">
                 <div className="h-2 rounded-full bg-muted-fg" style={{ width: "100%" }} />
               </div>
             </div>
           </div>
 
-          <p className="mt-3 rounded-xl bg-accent-fill/10 px-4 py-3 text-sm">
-            <span className="font-mono font-bold text-accent">
+          <p className="mt-3 rounded-xl bg-success/10 px-4 py-3 text-sm">
+            <span className="font-mono font-bold text-success">
               {costoKm.ahorroPorcentual >= 0 ? "-" : "+"}
               {formatNum(Math.abs(costoKm.ahorroPorcentual))}%
             </span>{" "}

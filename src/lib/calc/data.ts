@@ -37,9 +37,14 @@ export const SHELL_PRECIO_MIN = 609;
 
 export const EMERGENCY_POWER = 1.4;
 
-/** Defaults sección 4.1 */
-export const DEFAULT_PRECIO_NAFTA = 1450;
+/** Defaults sección 4.1 (precio nafta actualizado jul-2026) */
+export const DEFAULT_PRECIO_NAFTA = 2300;
 export const DEFAULT_CONSUMO_REFERENCIA = 8.5;
+
+/** Defaults amortización del Wallbox (§4.5 adaptada): precios de equipo/instalación en USD */
+export const DEFAULT_COSTO_CARGADOR_USD = 0; // bonificado por BYD
+export const DEFAULT_COSTO_INSTALACION_USD = 500;
+export const DEFAULT_TIPO_CAMBIO = 1500; // ARS por USD, oficial jul-2026, editable
 
 export interface ChargerRange {
   min: number;

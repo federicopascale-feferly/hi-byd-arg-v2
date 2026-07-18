@@ -1,20 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Space_Mono, Syncopate } from "next/font/google";
+import { Ubuntu, Ubuntu_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const ubuntu = Ubuntu({
+  variable: "--font-ubuntu",
+  weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
 });
 
-const syncopate = Syncopate({
-  variable: "--font-syncopate",
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
-
-const spaceMono = Space_Mono({
-  variable: "--font-space-mono",
+const ubuntuMono = Ubuntu_Mono({
+  variable: "--font-ubuntu-mono",
   weight: ["400", "700"],
   subsets: ["latin"],
 });
@@ -31,10 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="es"
-      className={`${geistSans.variable} ${syncopate.variable} ${spaceMono.variable} h-full antialiased`}
-    >
+    <html lang="es" className={`${ubuntu.variable} ${ubuntuMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

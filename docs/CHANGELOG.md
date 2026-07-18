@@ -1,5 +1,25 @@
 # Changelog — Calculadora Hi BYD Argentina v2
 
+## Fase 2 — 2026-07-18
+
+### Design system propio
+- Se reemplazó el estilo Aurora (cian/verde) por el **"Hi BYD Argentina Design System"** de claude.ai/design: modo oscuro único (fondo #1A1A1A), violeta `#8812F9` + naranja `#FF8B00`, neutros plata, tipografía **Ubuntu / Ubuntu Mono**. Tokens en `src/app/globals.css`; verde `#4ADE80` (--success del DS) reservado para ahorro/eléctrico.
+
+### Comparación con nafta
+- Precio de nafta default: **$2.300/litro** (antes $1.450).
+- Consumo con unidad configurable: **l/100 km ↔ km/litro** (toggle con conversión automática; el motor sigue calculando en l/100 km).
+
+### Amortización del Wallbox (§4.5 adaptada)
+- Nueva sección `PaybackSection` + módulo `src/lib/calc/payback.ts` (5 tests nuevos, 23 en total).
+- Inputs **en USD**: costo del cargador (default 0 — bonificado por BYD con el 0km, editable) + instalación (default US$ 500) + tipo de cambio editable (default $1.500, oficial jul-2026).
+- Salida: inversión total (USD y ARS), ahorro por carga (tarifa domiciliaria vs. pública, seleccionables) y **cantidad de cargas para amortizar**; caso "amortización inmediata" cuando todo es bonificado.
+
+### Asistente de consultas con IA
+- Widget de chat flotante (`ChatWidget`) + route handler `src/app/api/chat/route.ts` con `@anthropic-ai/sdk` (modelo `claude-opus-4-8`, thinking adaptativo, effort low, prompt caching).
+- System prompt generado desde los datos reales de la calculadora (`src/lib/chat/systemPrompt.ts`): modelos, tarifas y fórmulas — responde solo sobre BYD/carga, en español.
+- **Requiere `ANTHROPIC_API_KEY` en Vercel** (ver `.env.example`). Sin la key, el chat degrada con un mensaje amigable y el resto de la app funciona normal. La app dejó de ser 100% estática: `/api/chat` es una función serverless.
+
+
 ## Fase 1 — 2026-07-17
 
 Primera versión funcional, deployada en Vercel.
