@@ -2,9 +2,10 @@
 
 ## Fase 2.5 — 2026-07-19
 
-- **Endpoint de QA externo `/api/agente-test`** para que ArtificialQA teste el asistente: protegido con `AGENTE_TEST_TOKEN` (Bearer), habla formato OpenAI (`messages[]` → `choices[0].message.content`), solo lectura. Mismo patrón que en artificialqa-outreach.
+- **Endpoint de QA externo `/api/agente-test`** para que ArtificialQA teste el asistente: protegido con `AGENTE_TEST_TOKEN` (Bearer, tolerante a prefijo/espacios/mayúsculas), habla formato OpenAI (`messages[]` → `choices[0].message.content`), solo lectura. Mismo patrón que en artificialqa-outreach.
 - El núcleo del asistente se extrajo a `src/lib/chat/asistente.ts` (sanitización + llamada a Claude), compartido por `/api/chat` y `/api/agente-test`. Nuevos tests de `sanitizeMessages` (29 en total) + `vitest.config.ts` con el alias `@/`.
 - Documentación completa creada: [funcional.md](./funcional.md) y [tecnica.md](./tecnica.md); README reescrito como punto de entrada.
+- **Suite de QA en ArtificialQA** (conexión "Asistente Hi BYD"): 10 casos (exactitud de tiempo y costo, datos de modelos/tarifas, reglas DC 80% vs AC constante, honestidad, fuera de alcance, prompt injection, ambigüedad) × 8 evaluadores. Baseline: **score ~0,98, 10/10 aprobados**. Hallazgo de la QA (observación de producto, no bug): el costo de sesión se calcula con energía a la batería, sin aplicar la eficiencia 0,87 al costo — subestima ~13% el costo real de red. Pendiente de decisión.
 
 ## Fase 2.4 — 2026-07-18
 
