@@ -50,7 +50,8 @@ export function calculateCharge(input: ChargeInput): ChargeResult {
 
   const tarifa = TARIFAS.find((t) => t.id === tarifaId);
   if (!tarifa) throw new Error(`Tarifa desconocida: ${tarifaId}`);
-  const costoSesion = targetEnergyKw * tarifa.precioKwh;
+  const precioKwh = input.precioKwhPersonalizado ?? tarifa.precioKwh;
+  const costoSesion = targetEnergyKw * precioKwh;
 
   const costoShell = shellDisponible(model, chargerType) ? timeInHours * 60 * SHELL_PRECIO_MIN : null;
 

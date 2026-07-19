@@ -2,7 +2,7 @@ export type VehicleKind = 'EV' | 'PHEV';
 
 export type ChargerType = 'EMERGENCY' | 'BYD' | 'AC' | 'DC';
 
-export type TarifaId = 'EPE' | 'EDELAP' | 'YPF' | 'CHARGEBOX';
+export type TarifaId = 'EPE' | 'EPEC' | 'EDELAP' | 'YPF' | 'CHARGEBOX' | 'COMBO';
 
 export interface CarModel {
   id: string;
@@ -29,6 +29,8 @@ export interface Tarifa {
   precioKwh: number;
   /** true = carga domiciliaria (BYD, Emergency); false = pública (AC, DC) */
   domiciliaria: boolean;
+  /** true si el usuario puede editar el precio (para tarifas personalizadas) */
+  editable?: boolean;
 }
 
 export interface ChargeInput {
@@ -42,6 +44,8 @@ export interface ChargeInput {
   targetPercent?: number;
   /** Tarifa por kWh seleccionada */
   tarifaId: TarifaId;
+  /** Precio custom si se usa una tarifa editable (ej. COMBO) */
+  precioKwhPersonalizado?: number;
 }
 
 export interface ChargeResult {

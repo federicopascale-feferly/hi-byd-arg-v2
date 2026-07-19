@@ -33,6 +33,7 @@ export function Calculator() {
   const [currentBattery, setCurrentBattery] = useState(20);
   const [targetPercent, setTargetPercent] = useState<80 | 100>(DEFAULT_TARGET_PERCENT as 80);
   const [tarifaId, setTarifaId] = useState<TarifaId>("EPE");
+  const [precioKwhPersonalizado, setPrecioKwhPersonalizado] = useState<number | undefined>();
   const [precioNafta, setPrecioNafta] = useState(DEFAULT_PRECIO_NAFTA);
   const [unidadConsumo, setUnidadConsumo] = useState<"l100" | "kml">("l100");
   const [consumoValor, setConsumoValor] = useState(DEFAULT_CONSUMO_REFERENCIA);
@@ -70,6 +71,7 @@ export function Calculator() {
     currentBattery,
     targetPercent,
     tarifaId: tarifa.id,
+    precioKwhPersonalizado: tarifaId === "COMBO" ? precioKwhPersonalizado : undefined,
   });
 
   const costoKm = costoPorKm({
@@ -167,7 +169,13 @@ export function Calculator() {
           onChangePower={setChargerPower}
         />
 
-        <TariffPicker tarifas={tarifas} selectedId={tarifa.id} onSelect={setTarifaId} />
+        <TariffPicker
+          tarifas={tarifas}
+          selectedId={tarifaId}
+          onSelect={setTarifaId}
+          precioKwhPersonalizado={precioKwhPersonalizado}
+          onChangePrecioPersonalizado={setPrecioKwhPersonalizado}
+        />
 
         <fieldset>
           <legend className="flex items-center gap-2 text-sm font-medium text-muted-fg mb-3">

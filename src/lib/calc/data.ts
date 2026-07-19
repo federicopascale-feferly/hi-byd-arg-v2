@@ -28,9 +28,11 @@ export const CAR_MODELS: CarModel[] = raw.map((m) => ({ ...m, isCompact: isCompa
 
 export const TARIFAS: Tarifa[] = [
   { id: 'EPE', nombre: 'EPE Santa Fe', precioKwh: 350, domiciliaria: true },
+  { id: 'EPEC', nombre: 'EPEC', precioKwh: 183.78, domiciliaria: true },
   { id: 'EDELAP', nombre: 'EDELAP', precioKwh: 312, domiciliaria: true },
   { id: 'YPF', nombre: 'YPF', precioKwh: 892, domiciliaria: false },
   { id: 'CHARGEBOX', nombre: 'ChargeBox', precioKwh: 700, domiciliaria: false },
+  { id: 'COMBO', nombre: 'Combo personalizado', precioKwh: 500, domiciliaria: false, editable: true },
 ];
 
 /** Shell cobra por minuto, solo carga pública DC */
