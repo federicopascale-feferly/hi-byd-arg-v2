@@ -16,14 +16,17 @@ export const maxDuration = 60;
 
 export async function POST(req: Request) {
   const token = process.env.AGENTE_TEST_TOKEN;
-  const auth = req.headers.get("authorization") ?? "";
   if (!token) {
     return NextResponse.json(
       { error: "Endpoint no configurado (falta AGENTE_TEST_TOKEN)." },
       { status: 503 },
     );
   }
-  if (auth !== `Bearer ${token}`) {
+  // Tolerante a cómo cada plataforma arma el header: con o sin prefijo
+  // "Bearer", y con espacios sobrantes del copy-paste del token.
+  const auth = (req.headers.get("authorization") ?? "").trim();
+  const provided = (auth.replace(/^Bearer\s+/i, "") || auth).trim();
+  if (provided !== token) {
     return NextResponse.json({ error: "no autorizado" }, { status: 401 });
   }
 
