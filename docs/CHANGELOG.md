@@ -1,5 +1,13 @@
 # Changelog — Calculadora Hi BYD Argentina v2
 
+## Fase 2.6 — 2026-07-19 (Nuevas tarifas)
+
+- **EPEC ($183.78/kWh)** agregada como tarifa domiciliaria (Corrientes).
+- **COMBO personalizado** — nueva tarifa pública con precio editable (default $500/kWh):
+  - Input de edición en tiempo real debajo del selector cuando se selecciona COMBO
+  - El motor calcula el costo con el precio ingresado por el usuario
+  - Permite comparar costos con diferentes tarifas sin añadir opciones predefinidas
+
 ## Fase 2.5 — 2026-07-19
 
 - **Endpoint de QA externo `/api/agente-test`** para que ArtificialQA teste el asistente: protegido con `AGENTE_TEST_TOKEN` (Bearer, tolerante a prefijo/espacios/mayúsculas), habla formato OpenAI (`messages[]` → `choices[0].message.content`), solo lectura. Mismo patrón que en artificialqa-outreach.
