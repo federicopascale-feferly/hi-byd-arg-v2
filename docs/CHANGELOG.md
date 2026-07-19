@@ -1,5 +1,11 @@
 # Changelog — Calculadora Hi BYD Argentina v2
 
+## Fase 2.5 — 2026-07-19
+
+- **Endpoint de QA externo `/api/agente-test`** para que ArtificialQA teste el asistente: protegido con `AGENTE_TEST_TOKEN` (Bearer), habla formato OpenAI (`messages[]` → `choices[0].message.content`), solo lectura. Mismo patrón que en artificialqa-outreach.
+- El núcleo del asistente se extrajo a `src/lib/chat/asistente.ts` (sanitización + llamada a Claude), compartido por `/api/chat` y `/api/agente-test`. Nuevos tests de `sanitizeMessages` (29 en total) + `vitest.config.ts` con el alias `@/`.
+- Documentación completa creada: [funcional.md](./funcional.md) y [tecnica.md](./tecnica.md); README reescrito como punto de entrada.
+
 ## Fase 2.4 — 2026-07-18
 
 - **La barra de batería refleja el objetivo de carga**: al elegir 80% o 100%, la zona a cargar (batería actual → objetivo) se pinta en naranja sobre el track (`EmojiRange.highlightTo`), y el hito del objetivo se mueve — con 100% aparecen los hitos 80% y 100%.
