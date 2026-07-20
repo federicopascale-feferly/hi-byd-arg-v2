@@ -1,5 +1,16 @@
 # Changelog — Calculadora Hi BYD Argentina v2
 
+## Fase 2.7 — 2026-07-20 (Android APK via GitHub Actions)
+
+- **Capacitor** agregado para empaquetar la app como APK Android
+- **GitHub Actions workflow** (`build-apk.yml`): 
+  - Auto-buildea APK en cada push a `main`
+  - Genera APK debug (testing) + release (Play Store)
+  - Tests corren antes del build
+  - Artifacts disponibles para descargar
+- **Next.js configurado** para static export (`output: export`, `distDir: out`)
+- Documentación: `.github/workflows/README.md` con instrucciones para firma + Play Store
+
 ## Fase 2.6 — 2026-07-19 (Nuevas tarifas)
 
 - **EPEC ($183.78/kWh)** agregada como tarifa domiciliaria (Corrientes).
