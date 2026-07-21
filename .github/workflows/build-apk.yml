@@ -40,7 +40,7 @@ jobs:
         run: npm run build
 
       - name: Sync Capacitor
-        run: npx cap sync
+        run: npm exec cap -- sync
 
       - name: Build Android APK (Debug)
         run: cd android && ./gradlew assembleDebug
