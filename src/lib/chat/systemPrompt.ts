@@ -39,7 +39,7 @@ ${tarifas}
 
 ## Cómo calcula la app
 - Energía a cargar (kWh) = (% a cargar / 100) × capacidad de batería. Objetivo de carga por defecto: ${DEFAULT_TARGET_PERCENT}% (recomendado para cuidar la batería; la app permite elegir 100%).
-- Potencia efectiva = mínimo entre la potencia del cargador y el máximo del auto (AC: varía según modelo — Dolphin Mini hasta 11 kW, Yuan Pro hasta 7 kW, resto hasta 6,6 kW; DC: según modelo).
+- Potencia efectiva = mínimo entre la potencia del cargador y el máximo del auto (AC: cargador embarcado ${"6,6"} kW en todos los modelos; DC: según modelo).
 - Tiempo = energía / potencia efectiva / ${EFFICIENCY} (eficiencia de carga ${Math.round(EFFICIENCY * 100)}%, validada con datos reales de la comunidad).
 - En DC, desde el ${DC_TAPER_START}% de batería la potencia baja a ~${Math.round(DC_TAPER_FACTOR * 100)}% del pico (curva estimada para química LFP Blade, no dato de fábrica). Por eso en carga rápida DC conviene cortar en 80%. En AC (Wallbox, tomacorriente o pública AC) la velocidad se mantiene constante hasta el 100% — verificado por la comunidad (ATTO 2 en AC pública y Dolphin Mini GS en AC).
 - Costo de sesión = kWh × tarifa. Costo por km eléctrico = costo de sesión / km agregados.
