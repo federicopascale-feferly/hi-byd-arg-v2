@@ -15,9 +15,9 @@ const isCompact = (id: string) => id === 'atto-2' || id === 'seal-u-dmi' || id.s
 
 const raw = [
   { id: 'atto-2', nombre: 'ATTO 2', tipo: 'PHEV', batteryKw: 18.3, maxAc: 6.6, maxDc: 0, electricRange: 110, descripcion: 'SUV compacto híbrido enchufable con V2L de fábrica: 110 km en modo 100% eléctrico para el uso urbano diario.' },
-  { id: 'yuan-pro', nombre: 'Yuan Pro', tipo: 'EV', batteryKw: 45.1, maxAc: 6.6, maxDc: 65, electricRange: 380 , descripcion: 'SUV 100% eléctrico de entrada a la marca: 380 km de autonomía y carga rápida DC de hasta 65 kW.' },
-  { id: 'dolphin-mini-gl', nombre: 'Dolphin Mini GL', tipo: 'EV', batteryKw: 30.08, maxAc: 6.6, maxDc: 65, electricRange: 300, descripcion: 'El eléctrico urbano más accesible: 300 km de autonomía y carga rápida DC de hasta 65 kW.' },
-  { id: 'dolphin-mini-gs', nombre: 'Dolphin Mini GS', tipo: 'EV', batteryKw: 43.2, maxAc: 6.6, maxDc: 85, electricRange: 400, descripcion: 'La versión con más batería del Dolphin Mini: 400 km de autonomía y carga rápida DC de hasta 85 kW.' },
+  { id: 'yuan-pro', nombre: 'Yuan Pro', tipo: 'EV', batteryKw: 45.12, maxAc: 7, maxDc: 65, electricRange: 380 , descripcion: 'SUV 100% eléctrico de entrada a la marca: 380 km de autonomía y carga rápida DC de hasta 65 kW.' },
+  { id: 'dolphin-mini-gl', nombre: 'Dolphin Mini GL', tipo: 'EV', batteryKw: 30.08, maxAc: 11, maxDc: 65, electricRange: 300, descripcion: 'El eléctrico urbano más accesible: 300 km de autonomía, carga AC hasta 11 kW y carga rápida DC de hasta 65 kW.' },
+  { id: 'dolphin-mini-gs', nombre: 'Dolphin Mini GS', tipo: 'EV', batteryKw: 43.2, maxAc: 11, maxDc: 85, electricRange: 400, descripcion: 'La versión con más batería del Dolphin Mini: 400 km de autonomía, carga AC hasta 11 kW y carga rápida DC de hasta 85 kW.' },
   { id: 'shark', nombre: 'Shark', tipo: 'PHEV', batteryKw: 29.58, maxAc: 6.6, maxDc: 40, electricRange: 100, descripcion: 'Pickup híbrida enchufable con V2L de fábrica: 100 km eléctricos y carga rápida DC de hasta 40 kW.' },
   { id: 'song-pro-gl', nombre: 'Song Pro GL', tipo: 'PHEV', batteryKw: 12.9, maxAc: 6.6, maxDc: 0, electricRange: 71, descripcion: 'SUV familiar híbrido enchufable: 71 km en modo 100% eléctrico para la rutina diaria.' },
   { id: 'song-pro-gs', nombre: 'Song Pro GS', tipo: 'PHEV', batteryKw: 18.3, maxAc: 6.6, maxDc: 0, electricRange: 110, descripcion: 'SUV familiar híbrido enchufable con más batería: 110 km en modo 100% eléctrico.' },
