@@ -1,5 +1,15 @@
 # Changelog — Calculadora Hi BYD Argentina v2
 
+## Fase 2.8 — 2026-07-24 (QA de estrés: 500 casos) — EN PAUSA
+
+- **500 casos de prueba generados** en `scripts/qa/` para estresar ArtificialQA y el asistente. El generador reimplementa `engine.ts` y **aborta si el autochequeo no reproduce el dato real** (Dolphin Mini GS 23→100% AC 6,6 kW = 5h 48m y 38,23 kWh de red contra 38,3 medidos), así que los `expectedOutput` no son inventados.
+- Cobertura: cálculo de tiempo AC/DC con taper, costos por las 6 tarifas (incluidas EPEC y COMBO), costo por km vs nafta, fichas de los 8 modelos, reglas DC vs AC 80/100, DC forzado a AC, Shell por minuto, Wallbox/amortización, honestidad, derivación comercial, fuera de alcance, prompt injection, ambigüedad, formato y edge cases numéricos. 10 conversacionales multi-turno.
+- Creados en ArtificialQA: suite `Stress 500` y plan propio, separados del plan baseline de 10 casos para no contaminar su histórico de 3 runs.
+- **Bloqueado:** la API key es read-only (`GET` 200, `POST` 403; el 405 en paths falsos confirma que los paths de escritura son correctos). Falta regenerarla con scope `write`.
+- **Suspendido por costo** antes de lanzar el run: 500 llamadas al endpoint + ~8.500 evaluaciones LLM con los 17 evaluadores. Se retoma el 2026-07-27.
+- Detalle en [scripts/qa/README.md](../scripts/qa/README.md), con los IDs y los pasos exactos para retomar.
+- Hallazgo sobre ArtificialQA: la API pública devuelve HTML en los errores en vez de JSON, lo que rompe cualquier cliente que haga `res.json()` sobre un 4xx.
+
 ## Fase 2.7 — 2026-07-20 (Android APK via GitHub Actions)
 
 - **Capacitor** agregado para empaquetar la app como APK Android

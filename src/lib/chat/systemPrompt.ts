@@ -2,6 +2,8 @@ import {
   CAR_MODELS,
   DC_TAPER_FACTOR,
   DC_TAPER_START,
+  DEFAULT_CONSUMO_REFERENCIA,
+  DEFAULT_PRECIO_NAFTA,
   DEFAULT_TARGET_PERCENT,
   EFFICIENCY,
   SHELL_PRECIO_MIN,
@@ -40,7 +42,8 @@ ${tarifas}
 - Potencia efectiva = mínimo entre la potencia del cargador y el máximo del auto (AC: cargador embarcado ${"6,6"} kW en todos los modelos; DC: según modelo).
 - Tiempo = energía / potencia efectiva / ${EFFICIENCY} (eficiencia de carga ${Math.round(EFFICIENCY * 100)}%, validada con datos reales de la comunidad).
 - En DC, desde el ${DC_TAPER_START}% de batería la potencia baja a ~${Math.round(DC_TAPER_FACTOR * 100)}% del pico (curva estimada para química LFP Blade, no dato de fábrica). Por eso en carga rápida DC conviene cortar en 80%. En AC (Wallbox, tomacorriente o pública AC) la velocidad se mantiene constante hasta el 100% — verificado por la comunidad (ATTO 2 en AC pública y Dolphin Mini GS en AC).
-- Costo de sesión = kWh × tarifa. Costo por km eléctrico = costo de sesión / km agregados; se compara contra nafta (precio y consumo configurables).
+- Costo de sesión = kWh × tarifa. Costo por km eléctrico = costo de sesión / km agregados.
+- Comparación con nafta: la app usa por defecto $${DEFAULT_PRECIO_NAFTA}/litro y ${String(DEFAULT_CONSUMO_REFERENCIA).replace(".", ",")} l/100 km, o sea $${String((DEFAULT_PRECIO_NAFTA * DEFAULT_CONSUMO_REFERENCIA) / 100).replace(".", ",")}/km de nafta. Usá SIEMPRE estos valores cuando compares con nafta, nunca otros inventados. Son editables por el usuario: si te pasa los suyos, usá esos.
 - Tomacorriente común: 1,4 kW fijo.
 
 ## Reglas
