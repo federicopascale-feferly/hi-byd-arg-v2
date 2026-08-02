@@ -32,7 +32,10 @@ export function ChargerControls({ model, chargerType, chargerPower, actualPower,
   return (
     <div className="space-y-4">
       <fieldset>
-        <legend className="text-sm font-medium text-muted-fg mb-3">Tipo de carga</legend>
+        <legend className="flex items-baseline gap-2 mb-3">
+          <span className="text-xl font-bold text-primary">3</span>
+          <span className="text-sm font-medium text-muted-fg">Elegí tipo de carga a realizar</span>
+        </legend>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {CHARGERS.map(({ type, label, detail, Icon }) => {
             const selected = type === chargerType;
@@ -80,9 +83,12 @@ export function ChargerControls({ model, chargerType, chargerPower, actualPower,
       {!range.fixed && (
         <div>
           <div className="flex items-baseline justify-between mb-2">
-            <label htmlFor="charger-power" className="text-sm font-medium text-muted-fg">
-              Potencia del cargador
-            </label>
+            <div className="flex items-baseline gap-2">
+              <span className="text-xl font-bold text-primary">4</span>
+              <label htmlFor="charger-power" className="text-sm font-medium text-muted-fg">
+                Potencia
+              </label>
+            </div>
             <output htmlFor="charger-power" className="font-mono text-sm font-bold text-primary-hover">
               {formatNum(chargerPower)} kW
             </output>

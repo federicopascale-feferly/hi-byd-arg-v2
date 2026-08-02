@@ -17,8 +17,7 @@ export function ModelSelector({ models, selectedId, onSelect }: Props) {
   if (!expanded) {
     return (
       <section aria-label="Modelo seleccionado">
-        <div className="flex items-baseline justify-between mb-3">
-          <h2 className="text-sm font-medium text-muted-fg">Modelos disponibles en Argentina</h2>
+        <div className="flex items-baseline justify-end mb-3">
           <button
             type="button"
             onClick={() => setExpanded(true)}
@@ -46,9 +45,6 @@ export function ModelSelector({ models, selectedId, onSelect }: Props) {
 
   return (
     <fieldset>
-      <legend className="text-sm font-medium text-muted-fg mb-3">
-        Modelos disponibles en Argentina
-      </legend>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
         {models.map((m) => {
           const isSelected = m.id === selectedId;

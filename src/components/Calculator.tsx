@@ -85,13 +85,23 @@ export function Calculator() {
     <>
     <div className="grid gap-6 lg:grid-cols-[1.15fr_1fr] lg:items-start">
       <div className="space-y-6 rounded-2xl border border-border bg-surface p-6 backdrop-blur">
-        <ModelSelector models={CAR_MODELS} selectedId={model.id} onSelect={selectModel} />
+        <div>
+          <div className="flex items-baseline gap-2 mb-4">
+            <span className="text-2xl font-bold text-primary">1</span>
+            <h2 className="text-lg font-semibold text-white">Elegí el tuyo 🚗</h2>
+          </div>
+          <p className="text-xs text-muted-fg mb-3">BYD disponibles en Argentina</p>
+          <ModelSelector models={CAR_MODELS} selectedId={model.id} onSelect={selectModel} />
+        </div>
 
         <div>
           <div className="flex items-baseline justify-between mb-2">
-            <label htmlFor="current-battery" className="text-sm font-medium text-muted-fg">
-              Batería actual
-            </label>
+            <div className="flex items-baseline gap-2">
+              <span className="text-xl font-bold text-primary">2</span>
+              <label htmlFor="current-battery" className="text-sm font-medium text-muted-fg">
+                Batería actual
+              </label>
+            </div>
             <output htmlFor="current-battery" className="font-mono text-sm font-bold text-primary">
               {formatNum(currentBattery)}%
             </output>
