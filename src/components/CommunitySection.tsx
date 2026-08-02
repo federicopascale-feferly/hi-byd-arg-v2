@@ -61,7 +61,7 @@ export function CommunitySection() {
           Si tenés un EV o PHEV y querés que lo agregue a la calculadora, invítame un cafecito y comparte los datos de tu modelo.
         </p>
         <a
-          href="https://cafecito.app/hi-byd"
+          href="https://cafecito.app/hibydargentina"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block bg-gradient-to-r from-purple-600 to-orange-600 hover:from-purple-700 hover:to-orange-700 text-white font-medium px-6 py-2 rounded-lg transition-all transform hover:scale-105"
