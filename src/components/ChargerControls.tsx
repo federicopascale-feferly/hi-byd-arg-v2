@@ -1,4 +1,4 @@
-import { BYD_WALLBOX_MAX, chargerRange } from "@/lib/calc/data";
+import { BYD_WALLBOX_MAX, chargerRange, soportaWallboxBYD } from "@/lib/calc/data";
 import type { CarModel, ChargerType } from "@/lib/calc/types";
 import { formatNum } from "@/lib/format";
 import { EmojiRange } from "./EmojiRange";
@@ -39,9 +39,8 @@ export function ChargerControls({ model, chargerType, chargerPower, actualPower,
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {CHARGERS.map(({ type, label, detail, Icon }) => {
             const selected = type === chargerType;
-            const isBYDWallbox = type === "BYD";
-            const isCaptiva = model.id === "chevrolet-captiva";
-            const disabled = (type === "DC" && !dcDisponible) || (isBYDWallbox && isCaptiva);
+            const disabled =
+              (type === "DC" && !dcDisponible) || (type === "BYD" && !soportaWallboxBYD(model));
             return (
               <button
                 key={type}

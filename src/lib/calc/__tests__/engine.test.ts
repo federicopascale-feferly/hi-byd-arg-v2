@@ -47,7 +47,7 @@ describe('motor base (§2)', () => {
       tarifaId: 'YPF',
     });
     expect(r.percentageToCharge).toBe(50);
-    expect(r.targetEnergyKw).toBeCloseTo(0.5 * 45.1, 5);
+    expect(r.targetEnergyKw).toBeCloseTo(0.5 * byId('yuan-pro').batteryKw, 5);
     expect(r.addedRangeKm).toBe(190);
   });
 
@@ -81,7 +81,7 @@ describe('motor base (§2)', () => {
       currentBattery: 30,
       tarifaId: 'YPF',
     });
-    expect(r.costoSesion).toBeCloseTo(0.5 * 45.1 * 892, 2);
+    expect(r.costoSesion).toBeCloseTo(0.5 * byId('yuan-pro').batteryKw * 892, 2);
   });
 
   it('batería actual >= target → sesión vacía, sin división por cero en $/km', () => {

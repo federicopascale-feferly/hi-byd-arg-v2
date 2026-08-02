@@ -7,6 +7,7 @@ import {
   DEFAULT_PRECIO_NAFTA,
   DEFAULT_TARGET_PERCENT,
   chargerRange,
+  soportaWallboxBYD,
   tarifasDisponibles,
 } from "@/lib/calc/data";
 import { calculateCharge, effectiveChargerType } from "@/lib/calc/engine";
@@ -52,10 +53,8 @@ export function Calculator() {
 
   const selectModel = (m: CarModel) => {
     let type = effectiveChargerType(m.maxDc, chargerType);
-    // Chevrolet Captiva no tiene Wallbox BYD, cambiar a AC
-    if (m.id === 'chevrolet-captiva' && type === 'BYD') {
-      type = 'AC';
-    }
+    // Si el modelo no acepta Wallbox BYD, la carga domiciliaria pasa a AC pública
+    if (type === "BYD" && !soportaWallboxBYD(m)) type = "AC";
     setModel(m);
     setChargerType(type);
     setChargerPower((p) => clampPower(m, type, p));

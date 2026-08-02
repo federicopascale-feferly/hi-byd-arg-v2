@@ -58,17 +58,31 @@ export interface ChargerRange {
   fixed: boolean;
 }
 
+/**
+ * Modelos aportados por la comunidad que no son compatibles con el Wallbox BYD.
+ * En AC su slider se topea en el cargador embarcado del auto, no en la potencia de la estación.
+ */
+const SIN_WALLBOX_BYD = new Set(['chevrolet-captiva']);
+
+export const soportaWallboxBYD = (model: CarModel) => !SIN_WALLBOX_BYD.has(model.id);
+
 /** Rango del slider de potencia según tipo de cargador y modelo (§1.2) */
 export function chargerRange(model: CarModel, chargerType: ChargerType): ChargerRange {
   switch (chargerType) {
     case 'EMERGENCY':
       return { min: EMERGENCY_POWER, max: EMERGENCY_POWER, fixed: true };
     case 'BYD':
-      return { min: 1.4, max: model.id === 'chevrolet-captiva' ? model.maxAc : BYD_WALLBOX_MAX, fixed: false };
+      return { min: 1.4, max: BYD_WALLBOX_MAX, fixed: false };
     case 'AC':
-      return { min: 1.4, max: model.maxAc, fixed: false };
+      // Las estaciones públicas AC llegan a 22 kW (7 kW para los compactos); el auto
+      // limita después vía actualChargingPower. Los modelos sin Wallbox se topean en su propio máximo.
+      return {
+        min: 1.4,
+        max: soportaWallboxBYD(model) ? (model.isCompact ? 7 : 22) : model.maxAc,
+        fixed: false,
+      };
     case 'DC':
-      return { min: 2, max: model.maxDc > 0 ? 150 : 22, fixed: false };
+      return { min: 2, max: 150, fixed: false };
   }
 }
 

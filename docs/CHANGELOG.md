@@ -1,5 +1,27 @@
 # Changelog — Calculadora Hi BYD Argentina v2
 
+## Fase 2.9 — 2026-08-01 (Vehículos comunitarios + tarjeta compartible)
+
+### Tarjeta compartible (PNG / PDF)
+- Botones **Compartir** y **Descargar PDF** al pie del panel de resultados ([ShareResults.tsx](../src/components/ShareResults.tsx)).
+- La tarjeta se dibuja a mano sobre un `<canvas>` de 1080×1350 (relación 4:5, la que mejor entra en WhatsApp e Instagram) en [src/lib/share/card.ts](../src/lib/share/card.ts). Incluye modelo, tramo de carga, tiempo, las 4 métricas, el comparativo de costo por km con barras y el cartel de ahorro.
+- **Por qué canvas y no html2canvas:** Tailwind v4 emite colores `oklch()` que html2canvas no sabe parsear y hacen fallar la captura. Dibujando a mano se controlan todos los colores y el resultado es idéntico en PNG y PDF.
+- **Compartir** usa la Web Share API con el archivo PNG: en móvil abre el share sheet nativo (WhatsApp, Instagram, etc.). En escritorio, donde no está disponible, el botón cambia solo a "Descargar imagen". Cancelar el share sheet (`AbortError`) no se muestra como error.
+- El PDF embebe la tarjeta como JPEG q=0.94: 176 KB contra los 663 KB del PNG, para que se pueda mandar por WhatsApp sin problema. `jspdf` se carga con import dinámico, así que no pesa en el bundle inicial.
+- La tipografía del canvas se toma de `getComputedStyle(document.body).fontFamily`, de modo que usa la misma Ubuntu que resolvió next/font, y se espera a `document.fonts.ready` antes de dibujar.
+
+### Vehículos comunitarios a pedido
+- Nueva sección al pie de la home ([CommunitySection.tsx](../src/components/CommunitySection.tsx)) con los vehículos aportados por la comunidad, CTA a Cafecito (`cafecito.app/hibydargentina`) y lista de colaboradores.
+- Los colaboradores viven en [src/lib/contributors.ts](../src/lib/contributors.ts); sumar uno nuevo es agregar un objeto al array.
+- **Chevrolet Captiva PHEV** como primer aporte (Andrés B., Rosario): 20,5 kWh, AC 3,3 kW, DC 24,6 kW, conector CCS2.
+
+### Ajustes del catálogo y del selector
+- Captiva **no ofrece Wallbox BYD** (no es compatible): el botón queda deshabilitado y, si se venía de Wallbox, el tipo de carga pasa solo a AC pública. La regla vive en `soportaWallboxBYD()` ([data.ts](../src/lib/calc/data.ts)), que usan tanto el motor como la UI.
+- Los modelos sin Wallbox topean el slider AC en su cargador embarcado (Captiva: 1,4–3,3 kW). Los BYD mantienen el tope de la estación pública (7 kW en compactos, 22 kW en el resto), con el auto limitando después vía `actualChargingPower`.
+- Se quitó la tarifa **Combo personalizado**.
+- **Yuan Pro: 45,1 → 45,12 kWh**, el valor de la ficha técnica oficial. El cambio estaba sin commitear de la sesión anterior y entró acá; los tests que lo hardcodeaban ahora lo derivan del catálogo para que no se desincronicen de nuevo.
+- La calculadora numera los pasos: **1** Elegí el tuyo · **2** Batería actual · **3** Elegí tipo de carga a realizar · **4** Potencia.
+
 ## Fase 2.8 — 2026-07-24 (QA de estrés: 500 casos) — EN PAUSA
 
 - **500 casos de prueba generados** en `scripts/qa/` para estresar ArtificialQA y el asistente. El generador reimplementa `engine.ts` y **aborta si el autochequeo no reproduce el dato real** (Dolphin Mini GS 23→100% AC 6,6 kW = 5h 48m y 38,23 kWh de red contra 38,3 medidos), así que los `expectedOutput` no son inventados.

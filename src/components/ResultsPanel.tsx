@@ -1,7 +1,16 @@
-import type { CarModel, ChargeResult, CostoPorKmResult, Tarifa } from "@/lib/calc/types";
+import type { CarModel, ChargerType, ChargeResult, CostoPorKmResult, Tarifa } from "@/lib/calc/types";
 import { formatHours } from "@/lib/calc/engine";
 import { formatARS, formatARSFino, formatNum } from "@/lib/format";
+import type { ShareCardData } from "@/lib/share/card";
+import { ShareResults } from "./ShareResults";
 import { IconBattery, IconClock, IconFuel, IconInfo, IconRoad, IconZap } from "./icons";
+
+const CHARGER_LABEL: Record<ChargerType, string> = {
+  EMERGENCY: "Tomacorriente",
+  BYD: "Wallbox BYD",
+  AC: "Pública AC",
+  DC: "Rápida DC",
+};
 
 interface Props {
   model: CarModel;
@@ -39,6 +48,25 @@ export function ResultsPanel({ model, result, costoKm, tarifa, targetPercent, cu
   }
 
   const pctElectrico = costoKm ? Math.min((costoKm.costoPorKmElectrico / costoKm.costoPorKmNafta) * 100, 100) : 0;
+
+  const shareData: ShareCardData = {
+    modelo: model.nombre,
+    tipo: model.tipo,
+    desdePct: currentBattery,
+    hastaPct: targetPercent,
+    cargador: CHARGER_LABEL[result.chargerType],
+    potenciaKw: result.actualChargingPower,
+    tiempo: formatHours(result.timeInHours),
+    energiaKwh: result.targetEnergyKw,
+    kmAgregados: result.addedRangeKm,
+    costoSesion: result.costoSesion,
+    tarifaNombre: tarifa.nombre,
+    costoShell: result.costoShell,
+    costoKmElectrico: costoKm?.costoPorKmElectrico ?? null,
+    costoKmNafta: costoKm?.costoPorKmNafta ?? null,
+    ahorroPorcentual: costoKm?.ahorroPorcentual ?? null,
+    curvaEstimada: result.esCurvaEstimada,
+  };
 
   return (
     <section aria-label="Resultados" className="rounded-2xl border border-border bg-surface p-6 backdrop-blur space-y-6">
@@ -122,6 +150,10 @@ export function ResultsPanel({ model, result, costoKm, tarifa, targetPercent, cu
           )}
         </div>
       )}
+
+      <div className="border-t border-border pt-5">
+        <ShareResults data={shareData} />
+      </div>
     </section>
   );
 }
