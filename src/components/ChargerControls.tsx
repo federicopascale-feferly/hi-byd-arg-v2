@@ -39,7 +39,9 @@ export function ChargerControls({ model, chargerType, chargerPower, actualPower,
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {CHARGERS.map(({ type, label, detail, Icon }) => {
             const selected = type === chargerType;
-            const disabled = type === "DC" && !dcDisponible;
+            const isBYDWallbox = type === "BYD";
+            const isCaptiva = model.id === "chevrolet-captiva";
+            const disabled = (type === "DC" && !dcDisponible) || (isBYDWallbox && isCaptiva);
             return (
               <button
                 key={type}
@@ -47,7 +49,7 @@ export function ChargerControls({ model, chargerType, chargerPower, actualPower,
                 disabled={disabled}
                 onClick={() => onSelectType(type)}
                 aria-pressed={selected}
-                title={disabled ? `${model.nombre} no soporta carga DC` : undefined}
+                title={disabled ? (type === "DC" ? `${model.nombre} no soporta carga DC` : `Wallbox BYD no disponible para ${model.nombre}`) : undefined}
                 className={`min-h-[44px] cursor-pointer rounded-xl border p-3 text-left transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${
                   selected
                     ? "border-primary bg-primary text-on-primary shadow-md"

@@ -51,7 +51,11 @@ export function Calculator() {
   const tarifa = tarifas.find((t) => t.id === tarifaId) ?? tarifas[0];
 
   const selectModel = (m: CarModel) => {
-    const type = effectiveChargerType(m.maxDc, chargerType);
+    let type = effectiveChargerType(m.maxDc, chargerType);
+    // Chevrolet Captiva no tiene Wallbox BYD, cambiar a AC
+    if (m.id === 'chevrolet-captiva' && type === 'BYD') {
+      type = 'AC';
+    }
     setModel(m);
     setChargerType(type);
     setChargerPower((p) => clampPower(m, type, p));

@@ -33,7 +33,6 @@ export const TARIFAS: Tarifa[] = [
   { id: 'EDELAP', nombre: 'EDELAP', precioKwh: 312, domiciliaria: true },
   { id: 'YPF', nombre: 'YPF', precioKwh: 892, domiciliaria: false },
   { id: 'CHARGEBOX', nombre: 'ChargeBox', precioKwh: 700, domiciliaria: false },
-  { id: 'COMBO', nombre: 'Combo personalizado', precioKwh: 500, domiciliaria: false, editable: true },
 ];
 
 /** Shell cobra por minuto, solo carga pública DC */
@@ -65,11 +64,11 @@ export function chargerRange(model: CarModel, chargerType: ChargerType): Charger
     case 'EMERGENCY':
       return { min: EMERGENCY_POWER, max: EMERGENCY_POWER, fixed: true };
     case 'BYD':
-      return { min: 1.4, max: BYD_WALLBOX_MAX, fixed: false };
+      return { min: 1.4, max: model.id === 'chevrolet-captiva' ? model.maxAc : BYD_WALLBOX_MAX, fixed: false };
     case 'AC':
-      return { min: 1.4, max: model.isCompact ? 7 : 22, fixed: false };
+      return { min: 1.4, max: model.maxAc, fixed: false };
     case 'DC':
-      return { min: 2, max: 150, fixed: false };
+      return { min: 2, max: model.maxDc > 0 ? 150 : 22, fixed: false };
   }
 }
 
