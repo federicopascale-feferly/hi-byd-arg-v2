@@ -22,6 +22,7 @@ const raw = [
   { id: 'song-pro-gl', nombre: 'Song Pro GL', tipo: 'PHEV', batteryKw: 12.9, maxAc: 6.6, maxDc: 0, electricRange: 71, descripcion: 'SUV familiar híbrido enchufable: 71 km en modo 100% eléctrico para la rutina diaria.' },
   { id: 'song-pro-gs', nombre: 'Song Pro GS', tipo: 'PHEV', batteryKw: 18.3, maxAc: 6.6, maxDc: 0, electricRange: 110, descripcion: 'SUV familiar híbrido enchufable con más batería: 110 km en modo 100% eléctrico.' },
   { id: 'seal-u-dmi', nombre: 'Seal U DM-i', tipo: 'PHEV', batteryKw: 18.3, maxAc: 6.6, maxDc: 0, electricRange: 110, descripcion: 'SUV mediano híbrido enchufable con V2L de fábrica: 110 km en modo 100% eléctrico.' },
+  { id: 'chevrolet-captiva', nombre: 'Chevrolet Captiva', tipo: 'PHEV', batteryKw: 20.5, maxAc: 3.3, maxDc: 24.6, electricRange: 110, descripcion: 'SUV híbrida enchufable Chevrolet con carga DC rápida: 110 km en modo 100% eléctrico. Conector CCS2.' },
 ] as const;
 
 export const CAR_MODELS: CarModel[] = raw.map((m) => ({ ...m, isCompact: isCompact(m.id) }));

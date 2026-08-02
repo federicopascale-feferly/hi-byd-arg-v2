@@ -1,5 +1,6 @@
 import { Calculator } from "@/components/Calculator";
 import { ChatWidget } from "@/components/ChatWidget";
+import { CommunitySection } from "@/components/CommunitySection";
 
 export default function Home() {
   return (
@@ -23,6 +24,8 @@ export default function Home() {
           estimaciones: la carga real varía con temperatura, estado de la batería y del cargador.
         </p>
       </footer>
+
+      <CommunitySection />
 
       <ChatWidget />
     </main>
